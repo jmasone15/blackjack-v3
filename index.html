@@ -18,6 +18,7 @@
 <body class="d-flex h-100 text-center text-white">
   <div id="tsparticles"></div>
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <!-- Nav -->
     <header class="mb-auto">
       <div>
         <h4 id="nav-header" class="float-md-start mb-0">Blackjack w/ Friends</h4>
@@ -25,16 +26,62 @@
           <a id="home-btn" class="nav-link fw-bold py-1 px-0 active">Home</a>
           <a id="leaderboard-btn" class="nav-link fw-bold py-1 px-0">Leaderboard</a>
           <a id="stats-btn" class="nav-link fw-bold py-1 px-0">Stats</a>
+          <div id="money-div" class="d-none">
+            <p id="money-text" class='px-0 fs-5 mb-1'>jordan: <b>$1000</b></p>
+            <p id="current-bet">Current Bet: <b>$100</b></p>
+          </div>
         </nav>
       </div>
     </header>
 
+    <!-- Game Over Modal -->
+    <div class="modal fade" id="game-over-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h1 class="modal-title fs-5" id="game-over-modal-header"></h1>
+          </div>
+          <div id="game-over-modal-body" class="modal-body">
+          </div>
+          <div class="modal-footer">
+            <button id="modal-button-change" class="btn btn-primary">Change Bet</button>
+            <button id="modal-button" class="btn btn-success">Next Round</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <form id="login-form" class="modal-content">
+          <div class="modal-header text-center">
+            <h1 class="modal-title fs-5">Welcome to Blackjack!</h1>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="username-input">Enter your name to sign up/login!</label>
+              <input id="username-input" type="text" class="form-control my-3" aria-describedby="emailHelp"
+                placeholder="Critters_R_Rad" required>
+            </div>
+            <div class="form-group">
+              <p id="login-validation" class="text-danger"></p>
+            </div>
+          </div>
+          <div class="modal-footer" id="login-modal-footer">
+            <button type="submit" class="btn btn-success">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <!-- Pregame -->
-    <main id="pre-game" class="px-3">
+    <main id="pre-game" class="d-none">
       <h1 class="header">Blackjack with Friends!</h1>
       <p class="lead">Click <b>Set Bet</b> to set your bet and click <b>Start Hand</b> to begin! Standard
         blackjack rules
         apply. If anything looks broken please go yell at Jordan.</p>
+      <p id="validation" class="d-none"></p>
       <div id="pre-game-btns">
         <button id="start-btn" class="btn hover-btn btn-lg btn-light fw-bold border-white bg-white">Start
           Hand</button>
@@ -54,21 +101,22 @@
       </div>
     </main>
 
-    <main id="bet-select">
-
-    </main>
-
     <!-- Game -->
     <main id="main-game" class="d-none">
       <div class="dealer-cards">
-        <img src="/assets/cards/1B.svg" alt="" class="playing-card">
-        <img src="/assets/cards/1B.svg" alt="" class="playing-card">
-        <p class="score-top"><b>Total: </b>21</p>
+        <div id="dealer-cards">
+          <img src="/cards/1B.svg" alt="" class="playing-card">
+          <img src="/cards/1B.svg" alt="" class="playing-card">
+          <img src="/cards/1B.svg" alt="" class="playing-card">
+        </div>
+        <p id="dealer-score"><b>Total: </b>21</p>
       </div>
       <div class="user-cards">
-        <img src="/assets/cards/1B.svg" alt="" class="playing-card">
-        <img src="/assets/cards/1B.svg" alt="" class="playing-card">
-        <p class="score-bottom"><b>Total: </b>21</p>
+        <div id="user-cards">
+          <img src="/cards/1B.svg" alt="" class="playing-card">
+          <img src="/cards/1B.svg" alt="" class="playing-card">
+        </div>
+        <p id="user-score"><b>Total: </b>21</p>
       </div>
     </main>
 
@@ -145,15 +193,16 @@
       <p class="lead">You're doing great schnuckums :D</p>
     </main>
 
+    <!-- Footer -->
     <footer class="mt-auto text-white-50">
       <div id="game-buttons" class="d-none">
-        <button title="you better hit the unemployment line if you keep losing"
+        <button id="hit-btn" title="you better hit the unemployment line if you keep losing"
           class="btn hover-btn-green btn-lg btn-light fw-bold border-white bg-white game-button">Hit</button>
-        <button disabled title="TBD"
+        <button id="split-btn" disabled title="TBD"
           class="btn hover-btn btn-lg btn-light fw-bold border-white bg-white game-button">Split</button>
-        <button disabled title="TBD"
+        <button id="double-btn" disabled title="TBD"
           class="btn hover-btn btn-lg btn-light fw-bold border-white bg-white game-button">Double</button>
-        <button title="did you check the spreadsheet? real gamblers never stand until they get 21"
+        <button id="stand-btn" title="did you check the spreadsheet? real gamblers never stand until they get 21"
           class="btn hover-btn-red btn-lg btn-light fw-bold border-white bg-white game-button">Stand</button>
       </div>
       <p class="footer-text">Made for my gambling <a
