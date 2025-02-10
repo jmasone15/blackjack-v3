@@ -24,13 +24,17 @@ class HTMLElements {
 	preGameBtnsDiv = document.getElementById('pre-game-btns') as HTMLElement;
 	setBetDiv = document.getElementById('set-bet') as HTMLElement;
 	betDisplay = document.getElementById('bet-display') as HTMLElement;
-	betInput = document.getElementById('bet-input') as HTMLElement;
+	betInput = document.getElementById('bet-input') as HTMLInputElement;
 	betConfirmBtn = document.getElementById('bet-confirm') as HTMLElement;
 	dealerCardsDiv = document.getElementById('dealer-cards') as HTMLElement;
 	dealerScoreEl = document.getElementById('dealer-score') as HTMLElement;
 	userCardsDiv = document.getElementById('user-cards') as HTMLElement;
-	userScoreEl = document.getElementById('user-cards') as HTMLElement;
+	userScoreEl = document.getElementById('user-score') as HTMLElement;
 	loginForm = document.getElementById('login-form') as HTMLFormElement;
+	hitBtn = document.getElementById('hit-btn') as HTMLElement;
+	standBtn = document.getElementById('stand-btn') as HTMLElement;
+	splitBtn = document.getElementById('split-btn') as HTMLElement;
+	doubleBtn = document.getElementById('double-btn') as HTMLElement;
 	gameOverModal = new Modal(
 		document.getElementById('game-over-modal') as HTMLElement
 	);
@@ -114,10 +118,6 @@ class HTMLElements {
 
 			this.preGameBtnsDiv.setAttribute('class', 'd-none');
 			this.setBetDiv.setAttribute('class', 'mt-3');
-		});
-		this.betInput.addEventListener('input', (e: Event) => {
-			const value = (e.target as HTMLInputElement).value;
-			this.betDisplay.innerText = `$${value}`;
 		});
 		this.betConfirmBtn.addEventListener('click', (e: Event) => {
 			e.preventDefault();

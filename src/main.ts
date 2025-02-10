@@ -4,6 +4,7 @@ import { Game } from './classes/Game';
 
 // TODO
 // - Bet Button small screen fix
+// - Loading spinner for any API calls
 // - Change size of cards based on how many have been dealt
 // - Reshuffle after cards run out.
 // - Double and Split Logic

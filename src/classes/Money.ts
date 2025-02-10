@@ -2,7 +2,7 @@ import { Game } from './Game';
 import htmlElements from '../utils/htmlElements';
 import { delay } from '../utils/delay';
 
-const { moneyTextEl, currentBetEl } = htmlElements;
+const { moneyTextEl, currentBetEl, betDisplay, betInput } = htmlElements;
 
 export class Money {
 	parent: Game;
@@ -12,6 +12,19 @@ export class Money {
 
 	constructor(parent: Game) {
 		this.parent = parent;
+
+		let betAmountString = this.currentBet.toString();
+
+		// Set initial value for the bet slider
+		betInput.value = betAmountString;
+		betDisplay.innerText = `$${betAmountString}`;
+
+		betInput.addEventListener('input', (e: Event) => {
+			const value = (e.target as HTMLInputElement).value;
+
+			this.currentBet = parseInt(value);
+			betDisplay.innerText = `$${value}`;
+		});
 	}
 
 	populateMoney() {

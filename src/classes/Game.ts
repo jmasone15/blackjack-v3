@@ -4,6 +4,7 @@ import { Money } from './Money';
 import { Card } from './Card';
 import htmlElements from '../utils/htmlElements';
 import { delay } from '../utils/delay';
+import { hideElement } from '../utils/hideElement';
 
 // Required HTMLElements
 const {
@@ -12,7 +13,16 @@ const {
 	preGameDiv,
 	gameOverModalHeader,
 	gameOverModalBodyDiv,
-	confetti
+	confetti,
+	gameButtonsDiv,
+	startBtn,
+	mainGameDiv,
+	moneyDiv,
+	leaderboardNavBtn,
+	homeNavBtn,
+	statsNavBtn,
+	hitBtn,
+	standBtn
 } = htmlElements;
 
 // Interfaces
@@ -37,20 +47,64 @@ export class Game {
 	private cards: number[] = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 
 	// Authentication
-	private auth: Auth = new Auth(this);
+	public auth: Auth = new Auth(this);
 
 	// Players
 	private dealer: Player = new Player(true);
 	private user: Player = new Player(false);
 
+	constructor() {
+		// Event Listeners that referene game variables
+		startBtn.addEventListener('click', (e: Event) => {
+			e.preventDefault();
+			return this.init();
+		});
+
+		hitBtn.addEventListener('click', async (e: Event) => {
+			e.preventDefault();
+
+			if (!this.userAction) {
+				return;
+			}
+
+			await this.user.deal(this.playingCards[this.cardIdx]);
+			this.cardIdx++;
+
+			if (this.user.total > 20) {
+				this.endUserTurn();
+			}
+
+			return;
+		});
+
+		standBtn.addEventListener('click', (e: Event) => {
+			e.preventDefault();
+
+			if (this.userAction) {
+				this.endUserTurn();
+			}
+
+			return;
+		});
+	}
+
 	private async init() {
 		this.preGame = false;
-
-		// Hide pregame section
-		preGameDiv.setAttribute('class', 'd-none');
-
 		this.roundCount++;
 
+		// Update DOM
+		hideElement(preGameDiv);
+		mainGameDiv.setAttribute('class', 'px-3 main"');
+		[leaderboardNavBtn, homeNavBtn, statsNavBtn].forEach((element) => {
+			hideElement(element);
+		});
+		moneyDiv.setAttribute('class', '');
+		gameButtonsDiv.setAttribute(
+			'class',
+			'd-flex w-100 justify-content-center mb-5'
+		);
+
+		await delay(500);
 		await this.money.subtract();
 
 		// Generate Shuffled Cards if needed.
@@ -116,6 +170,8 @@ export class Game {
 		if (skipMainScreen) {
 			return this.init();
 		}
+
+		console.log(this);
 	}
 
 	private createDeck() {
@@ -146,19 +202,17 @@ export class Game {
 		}
 	}
 
-	// endUserTurn() {
-	// 	this.userAction = false;
+	private endUserTurn() {
+		this.userAction = false;
 
-	// 	// Handle Buttons
-	// 	this.standBtn.turnOffButton();
-	// 	this.splitBtn.turnOffButton();
-	// 	this.doubleBtn.turnOffButton();
-	// 	this.hitBtn.turnOffButton();
+		// Disable Buttons
+		hitBtn.setAttribute('disabled', '');
+		standBtn.setAttribute('disabled', '');
 
-	// 	return this.dealerTurn();
-	// }
+		return this.dealerTurn();
+	}
 
-	async dealerTurn() {
+	private async dealerTurn() {
 		this.dealer.hand[1].flipCard();
 		this.dealer.hideTotal = false;
 		this.dealer.calculateHandTotal();
@@ -175,7 +229,7 @@ export class Game {
 		return this.endGame();
 	}
 
-	determineWinner(): WinTextObj {
+	private determineWinner(): WinTextObj {
 		let userWin = '';
 		let header = '';
 		let message = '';
@@ -217,7 +271,7 @@ export class Game {
 		};
 	}
 
-	async endGame() {
+	private async endGame() {
 		const { userWin, header, message } = this.determineWinner();
 
 		gameOverModalHeader.innerText = header;
