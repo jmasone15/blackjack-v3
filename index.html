@@ -18,7 +18,7 @@
   <div id="tsparticles"></div>
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <!-- Nav -->
-    <header class="mb-auto">
+    <header id="header" class="mb-auto">
       <div>
         <h4 id="nav-header" class="float-md-start mb-0">Blackjack with Friends</h4>
         <nav id="nav" class="nav nav-masthead justify-content-center float-md-end">
@@ -102,13 +102,14 @@
 
     <!-- Game -->
     <main id="main-game" class="d-none">
-      <div class="dealer-cards">
+      <div class="cards-display">
         <div id="dealer-cards"></div>
-        <p id="dealer-score"><b>Total: </b>21</p>
+        <p class="score-display" id="dealer-score"><b>Total: </b>21</p>
       </div>
-      <div class="user-cards">
+      <div class="spacer"></div>
+      <div class="cards-display">
         <div id="user-cards"></div>
-        <p id="user-score"><b>Total: </b>21</p>
+        <p class="score-display" id="user-score"><b>Total: </b>21</p>
       </div>
     </main>
 

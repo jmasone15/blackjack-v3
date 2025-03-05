@@ -23,7 +23,8 @@ const {
 	statsNavBtn,
 	hitBtn,
 	standBtn,
-	mainMenuBtn
+	mainMenuBtn,
+	headerEl
 } = htmlElements;
 
 // Interfaces
@@ -35,7 +36,6 @@ interface WinTextObj {
 
 export class Game {
 	// Game Variables
-	private preGame: boolean = true;
 	private userAction: boolean = false;
 	private money: Money = new Money(this);
 	private playingCards: Card[] = [];
@@ -94,7 +94,6 @@ export class Game {
 	}
 
 	private async init() {
-		this.preGame = false;
 		this.roundCount++;
 
 		// Update DOM
@@ -108,6 +107,7 @@ export class Game {
 			'class',
 			'd-flex w-100 justify-content-center mb-5'
 		);
+		headerEl.setAttribute('class', 'mb-5');
 
 		await delay(500);
 		await this.money.subtract();
@@ -151,8 +151,6 @@ export class Game {
 	}
 
 	public async preRound(skipMainScreen: boolean) {
-		this.preGame = true;
-
 		// Auth Check
 		if (!this.auth.isLoggedIn) {
 			loginModal.show();
@@ -174,13 +172,16 @@ export class Game {
 		this.money.populateBet();
 
 		// Show Pregame Section
-		preGameDiv.setAttribute('class', 'px-3');
+		preGameDiv.setAttribute('class', 'px-3 pregame-div');
 
 		// Show navigation buttons & hide money display
 		homeNavBtn.setAttribute('class', 'nav-link fw-bold py-1 px-0 active');
 		leaderboardNavBtn.setAttribute('class', 'nav-link fw-bold py-1 px-0');
 		statsNavBtn.setAttribute('class', 'nav-link fw-bold py-1 px-0');
 		hideElement(moneyDiv);
+
+		// Reset Spacing
+		headerEl.setAttribute('class', 'mb-auto');
 
 		if (skipMainScreen) {
 			return this.init();

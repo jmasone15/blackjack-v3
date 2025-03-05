@@ -71,35 +71,22 @@ body {
   color: #fff;
 }
 
-.main {
-  position: relative;
-}
-
 .playing-card {
   margin: 0% 1%;
-  max-width: 240px;
-  max-height: 320px;
+  max-width: 180px;
+  width: 25%;
 }
 
-#dealer-score {
-  margin-top: 3%;
-  margin-bottom: 15vh;
-}
-
-#user-score {
+.score-display {
   margin-top: 3%;
 }
 
-.dealer-cards {
-  position: relative;
-  top: 0%;
-  transform: translateY(0%);
+.cards-display {
+  min-height: 250px;
 }
 
-.user-cards {
-  position: relative;
-  bottom: 0%;
-  transform: translateY(0%);
+.spacer {
+  height: 20%;
 }
 
 .game-button {

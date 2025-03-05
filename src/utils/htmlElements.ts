@@ -37,6 +37,7 @@ class HTMLElements {
 	doubleBtn = document.getElementById('double-btn') as HTMLElement;
 	mainMenuBtn = document.getElementById('main-menu') as HTMLElement;
 	nextRoundBtn = document.getElementById('next-round') as HTMLElement;
+	headerEl = document.getElementById('header') as HTMLElement;
 	gameOverModal = new Modal(
 		document.getElementById('game-over-modal') as HTMLElement
 	);
