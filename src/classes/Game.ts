@@ -22,7 +22,8 @@ const {
 	homeNavBtn,
 	statsNavBtn,
 	hitBtn,
-	standBtn
+	standBtn,
+	mainMenuBtn
 } = htmlElements;
 
 // Interfaces
@@ -86,6 +87,10 @@ export class Game {
 
 			return;
 		});
+
+		mainMenuBtn.addEventListener('click', () => {
+			return this.preRound(false);
+		});
 	}
 
 	private async init() {
@@ -132,6 +137,10 @@ export class Game {
 
 		await delay(500);
 
+		// Enable Game Buttons
+		hitBtn.removeAttribute('disabled');
+		standBtn.removeAttribute('disabled');
+
 		// Initial end of game checks
 		if (this.user.total == 21 || this.dealer.total == 21) {
 			this.endUserTurn();
@@ -142,6 +151,8 @@ export class Game {
 	}
 
 	public async preRound(skipMainScreen: boolean) {
+		this.preGame = true;
+
 		// Auth Check
 		if (!this.auth.isLoggedIn) {
 			loginModal.show();
@@ -150,11 +161,9 @@ export class Game {
 			await this.auth.getUserData();
 		}
 
-		// Clear stale data
+		// Clear stale data & UI
 		this.reset();
-		gameOverModal.hide();
-		loginModal.hide();
-		this.preGame = true;
+		hideElement(gameButtonsDiv);
 
 		// Set Cash & Bet
 		if (!this.money.username) {
@@ -167,11 +176,15 @@ export class Game {
 		// Show Pregame Section
 		preGameDiv.setAttribute('class', 'px-3');
 
+		// Show navigation buttons & hide money display
+		homeNavBtn.setAttribute('class', 'nav-link fw-bold py-1 px-0 active');
+		leaderboardNavBtn.setAttribute('class', 'nav-link fw-bold py-1 px-0');
+		statsNavBtn.setAttribute('class', 'nav-link fw-bold py-1 px-0');
+		hideElement(moneyDiv);
+
 		if (skipMainScreen) {
 			return this.init();
 		}
-
-		console.log(this);
 	}
 
 	private createDeck() {
@@ -297,5 +310,9 @@ export class Game {
 		// Clear stale UI elements
 		this.user.reset();
 		this.dealer.reset();
+
+		// Reset Modals
+		gameOverModal.hide();
+		loginModal.hide();
 	}
 }

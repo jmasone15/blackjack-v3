@@ -14,7 +14,6 @@
 <!-- TODO -->
 <!-- tsParticles Background -->
 
-
 <body class="d-flex h-100 text-center text-white">
   <div id="tsparticles"></div>
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
@@ -44,8 +43,8 @@
           <div id="game-over-modal-body" class="modal-body">
           </div>
           <div class="modal-footer">
-            <button id="modal-button-change" class="btn btn-primary">Change Bet</button>
-            <button id="modal-button" class="btn btn-success">Next Round</button>
+            <button id="main-menu" class="btn btn-primary">Main Menu</button>
+            <button id="next-round" class="btn btn-success">Next Round</button>
           </div>
         </div>
       </div>
@@ -104,18 +103,11 @@
     <!-- Game -->
     <main id="main-game" class="d-none">
       <div class="dealer-cards">
-        <div id="dealer-cards">
-          <img src="/cards/1B.svg" alt="" class="playing-card">
-          <img src="/cards/1B.svg" alt="" class="playing-card">
-          <img src="/cards/1B.svg" alt="" class="playing-card">
-        </div>
+        <div id="dealer-cards"></div>
         <p id="dealer-score"><b>Total: </b>21</p>
       </div>
       <div class="user-cards">
-        <div id="user-cards">
-          <img src="/cards/1B.svg" alt="" class="playing-card">
-          <img src="/cards/1B.svg" alt="" class="playing-card">
-        </div>
+        <div id="user-cards"></div>
         <p id="user-score"><b>Total: </b>21</p>
       </div>
     </main>
@@ -196,13 +188,14 @@
     <!-- Footer -->
     <footer class="mt-auto text-white-50">
       <div id="game-buttons" class="d-none">
-        <button id="hit-btn" title="you better hit the unemployment line if you keep losing"
+        <button id="hit-btn" disabled title="you better hit the unemployment line if you keep losing"
           class="btn hover-btn-green btn-lg btn-light fw-bold border-white bg-white game-button">Hit</button>
         <button id="split-btn" disabled title="TBD"
           class="btn hover-btn btn-lg btn-light fw-bold border-white bg-white game-button">Split</button>
         <button id="double-btn" disabled title="TBD"
           class="btn hover-btn btn-lg btn-light fw-bold border-white bg-white game-button">Double</button>
-        <button id="stand-btn" title="did you check the spreadsheet? real gamblers never stand until they get 21"
+        <button id="stand-btn" disabled
+          title="did you check the spreadsheet? real gamblers never stand until they get 21"
           class="btn hover-btn-red btn-lg btn-light fw-bold border-white bg-white game-button">Stand</button>
       </div>
       <p class="footer-text">Made for my gambling <a

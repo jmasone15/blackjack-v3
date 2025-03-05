@@ -21,4 +21,8 @@ const startGame = (skipMainScreen: boolean) => {
 	return activeGame.preRound(skipMainScreen);
 };
 
+htmlElements.nextRoundBtn.addEventListener('click', () => {
+	return startGame(true);
+});
+
 startGame(false);

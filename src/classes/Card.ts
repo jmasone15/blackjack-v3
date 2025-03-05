@@ -14,7 +14,7 @@ export class Card {
 	createHTMLElement(): HTMLImageElement {
 		this.cardImg.setAttribute('src', this.generateCardSrc());
 		this.cardImg.setAttribute('id', this.id);
-		this.cardImg.setAttribute('class', 'playing-card');
+		this.cardImg.setAttribute('class', 'playing-card playing-card-regular');
 
 		return this.cardImg;
 	}

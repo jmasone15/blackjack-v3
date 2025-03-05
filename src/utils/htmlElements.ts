@@ -35,6 +35,8 @@ class HTMLElements {
 	standBtn = document.getElementById('stand-btn') as HTMLElement;
 	splitBtn = document.getElementById('split-btn') as HTMLElement;
 	doubleBtn = document.getElementById('double-btn') as HTMLElement;
+	mainMenuBtn = document.getElementById('main-menu') as HTMLElement;
+	nextRoundBtn = document.getElementById('next-round') as HTMLElement;
 	gameOverModal = new Modal(
 		document.getElementById('game-over-modal') as HTMLElement
 	);
